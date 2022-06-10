@@ -29,7 +29,21 @@ class DetailViewController: UIViewController, WKNavigationDelegate {
         
         loadPage(name: urlString!)
         let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
-        toolbarItems = [refreshButton]
+        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(goBack))
+        let forwardButton = UIBarButtonItem(title: "Forward", style: .plain, target: self, action: #selector(goForward))
+        toolbarItems = [refreshButton, backButton, forwardButton]
+    }
+    
+    @objc func goBack() {
+        if webView.canGoBack {
+            webView.goBack()
+        }
+    }
+    
+    @objc func goForward() {
+        if webView.canGoForward {
+            webView.goForward()
+        }
     }
     
     func loadPage(name: String) {
